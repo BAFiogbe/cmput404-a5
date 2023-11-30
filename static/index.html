@@ -58,7 +58,7 @@ function colorSwap(index) {
 
 function clearCanvasRequest() { var request = new Request("../clear");
     fetch(request, { method: 'GET' }).then((response) => {
-        if (response.status === 200) { // OK
+        if (response.status === 200) {
             return;
         } else {
             alert("Something went wrong: " + response.status);
