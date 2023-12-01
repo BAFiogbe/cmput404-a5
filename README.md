@@ -56,7 +56,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Contributors
 ============
-
+* Brandon Fiogbe
 * Mark Galloway
 * Abram Hindle
 * Cole Mackenzie
