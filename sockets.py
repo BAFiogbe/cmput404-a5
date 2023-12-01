@@ -75,7 +75,7 @@ myWorld.add_set_listener( set_listener )
 @app.route('/')
 def hello():
     '''Return something coherent here.. perhaps redirect to /static/index.html '''
-    return redirect("static/index.html", 302)
+    return redirect("static/index.html")
 
 def read_ws(ws,client):
     '''A greenlet function that reads from the websocket and updates the world'''
@@ -83,11 +83,12 @@ def read_ws(ws,client):
 
     while True:
         message = ws.receive()
-
+        print("WS RECV: %s" % message)
         if message != None:
             packet = json.loads(message)
             for entity in packet:
                 myWorld.set(entity, packet[entity])
+            
             
         else:
 
@@ -112,8 +113,8 @@ def subscribe_socket(ws):
         while True:
             message = sub.get()
             ws.send(message)
-    except:
-        pass
+    except  Exception as e:
+        print("WS Error %s" % e)
     finally:
         subs.remove(sub)
         gevent.kill(gev)
@@ -139,7 +140,7 @@ def update(entity):
     myWorld[entity] = content
 
 
-    return json.dumps(content)
+    return json.dumps(myWorld.get(entity))
 
 @app.route("/world", methods=['POST','GET'])    
 def world():
